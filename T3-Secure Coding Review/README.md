@@ -1,43 +1,135 @@
-# 🚀 CodeAlpha Cybersecurity & Development Projects
+## Secure Coding Review
 
-This repository contains a collection of practical projects aimed at demonstrating core cybersecurity and development skills — from packet sniffing to intrusion detection, secure code analysis, and portfolio development.
+## 📌 Overview
 
----
-
-## 📁 Projects Overview
-
-### 🔐 **T1 - Basic Network Sniffer**
-- **Tech Stack:** Python, Scapy
-- **Objective:** Capture live packets and understand the structure of network traffic.
-- **How to Run:**
-  1. Install dependencies: `pip install scapy`
-  2. Run as administrator: `python sniffer.py`
-- [More Info »](./T1_Basic_Network_Sniffer/README.md)
+This project focuses on performing a secure code review of a basic application. The goal is to identify potential vulnerabilities and apply best practices to ensure secure coding standards are followed. The process includes manual code inspection and the use of static analysis tools.
 
 ---
 
-### 🛡 **T2 - Network Intrusion Detection System (NIDS)**
-- **Tech Stack:** Snort / Suricata, PCAP data, Rule Sets
-- **Objective:** Detect suspicious activity using NIDS tools.
-- **How to Use:**
-  1. Install Snort or Suricata
-  2. Set up custom rule files and configure detection
-  3. View logs and alerts
-- [More Info »](./T2_Network_IDS/README.md)
+## 🎯 Objectives
+
+- Review source code for common security vulnerabilities.
+- Use automated tools to enhance detection.
+- Document and fix the identified issues.
+- Promote secure software development practices.
 
 ---
 
-### 🛠 **T3 - Secure Coding Review**
-- **Tech Stack:** Python, Bandit (optional), Manual Review
-- **Objective:** Identify and fix insecure patterns in code.
-- **How to Use:**
-  1. Review `vulnerable_app.py` for insecure practices
-  2. Compare with `secure_app.py` for best practices
-  3. Optionally use `bandit -r .` to automate scanning
-- [More Info »](./T3_Secure_Coding_Review/README.md)
+## 🧰 Technologies & Tools Used
+
+- **Language:** Python 3
+- **Static Analysis Tool:** [Bandit](https://github.com/PyCQA/bandit)
+- **Manual Review Techniques:** OWASP top 10 checklist
+- **Text Editor/IDE:** VS Code / PyCharm
+
+---
+
+## 📁 Project Structure
+
+```
+T3_Secure_Coding_Review/
+├── insecure_code/
+│   └── vulnerable_app.py            # Code with security flaws
+├── fixed_code/
+│   └── secure_app.py                # Remediated version of the app
+├── tools_report/
+│   └── bandit_report.txt            # Output from static analysis
+├── vulnerability_report.md         # Documentation of issues & fixes
+└── README.md                        # This file
+```
+
+---
+
+## 🛠️ Setup & Analysis Instructions
+
+### ✅ 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/T3_Secure_Coding_Review.git
+cd T3_Secure_Coding_Review
+```
+
+### ✅ 2. Run Static Analysis with Bandit
+
+Install Bandit (if not already installed):
+
+```bash
+pip install bandit
+```
+
+Run Bandit on the insecure code:
+
+```bash
+bandit -r insecure_code/ > tools_report/bandit_report.txt
+```
+
+### ✅ 3. Manual Review Checklist
+
+Manually inspect code in `insecure_code/` and check for:
+
+| Vulnerability         | Example                  |
+|-----------------------|--------------------------|
+| SQL Injection         | Unparameterized queries  |
+| XSS                   | Directly rendering input |
+| Command Injection     | `os.system(user_input)`  |
+| Insecure Deserialization | Use of `eval()` or `pickle` |
+| Hardcoded Secrets     | API keys in code         |
+| Missing Input Validation | No sanitization        |
+
+Record findings in `vulnerability_report.md`
+
+---
+
+## 🔍 Sample Findings
+
+### ❌ Vulnerability: Command Injection
+
+- **File:** `vulnerable_app.py`
+- **Line:** 27
+- **Issue:** Uses `os.system(user_input)` directly
+- **Fix:** Use `subprocess.run(shlex.split(user_input))` with validation
+
+---
+
+## ✅ Fix Implementation
+
+All fixed issues are located in:
+
+```
+fixed_code/secure_app.py
+```
+
+These include:
+
+- Proper input validation
+- Removal of insecure function calls
+- Secure handling of user data
+
+---
+
+## 🧪 Testing the Fixes
+
+After applying fixes, re-run Bandit:
+
+```bash
+bandit -r fixed_code/
+```
+
+Check that no critical or high severity issues remain.
 
 ---
 
 
 
+---
 
+## 👤 Author
+
+# phoric_zen  
+
+
+---
+
+## 📎 License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
